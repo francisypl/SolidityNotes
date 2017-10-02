@@ -1,3 +1,5 @@
+`notes from blockgeeks`
+
 # Data Types
 - contract
 - signed integers: int x; int256 y = 16;
