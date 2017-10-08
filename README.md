@@ -304,4 +304,48 @@ var addr2 = 0x0456;
 Coin.TransferCoinsLog({ _from: addr1, _to: addr2 });
 ```
 
+# Compiled Contracts
+opcodes: what the evm is interested in, what the solidity code is compiled down to
+bytecode: one to one mapping of opcodes
+interface: publicly exposed methods other contracts can interact with
+
+# Sending Transactions using JS web3
+```
+> web3.eth.accounts
+[ '0x5a1f3a7812e1720b28d0d66af789eea16c3aca8c',
+  '0xd98964a517a5370d7ca629ba87aa4fa79099e39b',
+  '0x474ef4635af0a69aefad3f084b0e9c705436eb00',
+  '0x095e68dc54c4d3f82fcc3ca8f57c285020263f56',
+  '0x9b6f59af6d886117bcaf2713617e7c6ed1fe492b',
+  '0x02adf9256f2ce0e97cdcd470695c5b40fdac9aea',
+  '0xcae5683ae553987f84470cd569882dc5f1d27ee5',
+  '0x32b659b62d4b450f3c6f15f3f40123456625ea27',
+  '0xd909840f7b2c5ff977eeb5b51ed2586906057cc0',
+  '0x80e4916e52f5076dec934892bcb077cfc99ae473' ]
+> var acct1 = web3.eth.accounts[0]
+undefined
+> acct1
+'0x5a1f3a7812e1720b28d0d66af789eea16c3aca8c'
+> var acct2 = web3.eth.accounts[1]
+undefined
+> acct2
+'0xd98964a517a5370d7ca629ba87aa4fa79099e39b'
+> web3.eth.getBalance(acct1)
+{ [String: '100000000000000000000'] s: 1, e: 20, c: [ 1000000 ] }
+> web3.fromWei(web3.eth.getBalance(acct1))
+{ [String: '100'] s: 1, e: 2, c: [ 100 ] }
+> web3.fromWei(web3.eth.getBalance(acct1), 'ether')
+{ [String: '100'] s: 1, e: 2, c: [ 100 ] }
+> web3.fromWei(web3.eth.getBalance(acct1), 'ether').toNumber()
+100
+> web3.fromWei(web3.eth.getBalance(acct2), 'ether').toNumber()
+100
+> web3.eth.sendTransaction({from: acct1, to: acct2, value: web3.toWei(1, 'ether')})
+'0x332ab3a85bb7a5a8e8d042eb60949f93e6ae07281e91522cfbfef3e7954fe677'
+> web3.fromWei(web3.eth.getBalance(acct1), 'ether').toNumber()
+98.99999999999999
+> web3.fromWei(web3.eth.getBalance(acct2), 'ether').toNumber()
+101
+```
+
 
